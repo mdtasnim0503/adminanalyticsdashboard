@@ -5,10 +5,12 @@ import SideBar from "./Sidebar/Sidebar";
 
 export default function MainLayout() {
   return (
-    <Box>
-      <AppBar />
+    <Box sx={{ display: "flex", gap: 1 }}>
       <SideBar />
-      <Outlet />
+      <Box sx={{ width: "100%" }}>
+        <AppBar />
+        <Box>{<Outlet />}</Box>
+      </Box>
     </Box>
   );
 }

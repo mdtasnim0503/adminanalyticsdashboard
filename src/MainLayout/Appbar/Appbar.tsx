@@ -6,6 +6,7 @@ export default function AppBar() {
     localStorage.removeItem("token");
     navigate("/", { replace: true });
   };
+  const appBarName = [{ href: "/admin" }];
   return (
     <Box
       sx={{
@@ -16,12 +17,23 @@ export default function AppBar() {
         alignItems: "center",
       }}
     >
-      <Typography
+      {/* <Typography
         level="title-lg"
         sx={{ fontSize: "1.7rem", fontWeight: "bold", color: "#565757" }}
-      >
-        App Bar
-      </Typography>
+      > */}
+      {appBarName.map((link) => (
+        <Typography
+          key={link.href}
+          sx={{
+            fontSize: "1.7rem",
+            fontWeight: "bold",
+            color: "var(--textHeader)",
+          }}
+        >
+          {link.href === "/admin" ? "Dashboard" : "App Bar"}
+        </Typography>
+      ))}
+      {/* </Typography> */}
       <Box sx={{ cursor: "pointer" }}>
         <Avatar variant="solid" />
       </Box>

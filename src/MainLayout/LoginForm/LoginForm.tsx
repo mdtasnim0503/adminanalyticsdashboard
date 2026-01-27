@@ -102,15 +102,9 @@ export default function LoginForm() {
             Email
           </InputLabel>
           <OutlinedInput label="Email" {...formik.getFieldProps("email")} />
-          <FormHelperText
-            sx={{ color: "#FF0000" }}
-            // error={formik.touched.email && Boolean(formik.errors.email)}
-          >
+          <FormHelperText sx={{ color: "#FF0000" }}>
             {formik.touched.email && formik.errors.email}
           </FormHelperText>
-          {/* {formik.touched.email && formik.errors.email && (
-            <FormHelperText error>{formik.errors.email}</FormHelperText>
-          )} */}
         </FormControl>
 
         <FormControl
