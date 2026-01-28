@@ -1,12 +1,22 @@
 import { Avatar, Box, Typography } from "@mui/joy";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 export default function AppBar() {
-  const navigate = useNavigate();
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/", { replace: true });
-  };
-  const appBarName = [{ href: "/admin" }];
+  // const navigate = useNavigate();
+  const { pathname } = useLocation();
+  // const logout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/", { replace: true });
+  // };
+  const sideBarLinks = [
+    { label: "Dashboard", href: "/admin" },
+    { label: "Users", href: "/users" },
+    { label: "Analytics", href: "/analytics" },
+    { label: "Orders", href: "/orders" },
+    { label: "Notifications", href: "/notifications" },
+    { label: "Settings", href: "/settings" },
+  ];
+  const activePage = sideBarLinks.find((item) => item.href === pathname);
+  const title = activePage?.label || "App Bar";
   return (
     <Box
       sx={{
@@ -17,23 +27,15 @@ export default function AppBar() {
         alignItems: "center",
       }}
     >
-      {/* <Typography
-        level="title-lg"
-        sx={{ fontSize: "1.7rem", fontWeight: "bold", color: "#565757" }}
-      > */}
-      {appBarName.map((link) => (
-        <Typography
-          key={link.href}
-          sx={{
-            fontSize: "1.7rem",
-            fontWeight: "bold",
-            color: "var(--textHeader)",
-          }}
-        >
-          {link.href === "/admin" ? "Dashboard" : "App Bar"}
-        </Typography>
-      ))}
-      {/* </Typography> */}
+      <Typography
+        sx={{
+          fontSize: "1.7rem",
+          fontWeight: "bold",
+          color: "var(--textHeader)",
+        }}
+      >
+        {title}
+      </Typography>
       <Box sx={{ cursor: "pointer" }}>
         <Avatar variant="solid" />
       </Box>
