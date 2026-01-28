@@ -1,7 +1,7 @@
 import { Box } from "@mui/joy";
 import { Outlet } from "react-router-dom";
-import AppBar from "./Appbar/Appbar";
-import SideBar from "./Sidebar/Sidebar";
+import AppBar from "../components/Appbar/Appbar";
+import SideBar from "../components/Sidebar/Sidebar";
 
 export default function MainLayout() {
   return (

@@ -16,6 +16,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { NavLink, useNavigate } from "react-router-dom";
 export default function SideBar() {
   const sideBarLinks = [
     {
@@ -23,13 +24,22 @@ export default function SideBar() {
       label: "Dashboard",
       href: "/admin",
     },
-    { icon: <GroupIcon />, label: "Users" },
-    { icon: <ShowChartIcon />, label: "Analytics" },
-    { icon: <FormatListNumberedIcon />, label: "Orders" },
-    { icon: <NotificationsIcon />, label: "Notifications" },
-    { icon: <SettingsIcon />, label: "Settings" },
-    { icon: <LogoutIcon />, label: "Logout" },
+    { icon: <GroupIcon />, label: "Users", href: "/users" },
+    { icon: <ShowChartIcon />, label: "Analytics", href: "/analytics" },
+    { icon: <FormatListNumberedIcon />, label: "Orders", href: "/orders" },
+    {
+      icon: <NotificationsIcon />,
+      label: "Notifications",
+      href: "/notifications",
+    },
+    { icon: <SettingsIcon />, label: "Settings", href: "/settings" },
+    { icon: <LogoutIcon />, label: "Logout", href: "/" },
   ];
+  const navigate = useNavigate();
+  const handlePage = (page: string) => {
+    navigate(page);
+  };
+
   return (
     <Box>
       <List
@@ -46,14 +56,18 @@ export default function SideBar() {
         <ListItem sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           {sideBarLinks.map((item) => (
             <ListItemButton
+              component={NavLink}
+              to={item.href}
+              onClick={() => handlePage(item.href)}
               key={item.label}
               sx={{
-                backgroundColor: item.href === "/admin" ? "#547792" : undefined,
-                color: item.href === "/admin" ? "#fff" : "inherit",
-                "&:hover": {
-                  backgroundColor:
-                    item.href === "/admin" ? "#3e5a70 !important" : undefined,
-                  color: item.href === "/admin" ? "#fff !important" : "inherit",
+                "&.active": {
+                  backgroundColor: "#547792",
+                  color: "#fff",
+                },
+                "&.active:hover": {
+                  backgroundColor: "#3e5a70",
+                  color: "#fff",
                 },
               }}
             >

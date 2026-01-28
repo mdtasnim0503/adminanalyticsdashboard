@@ -41,7 +41,7 @@ export default function LoginForm() {
     onSubmit: (values, { resetForm }) => {
       if (
         formik.values.email === "admin@gmail.com" &&
-        formik.values.password === "1234"
+        formik.values.password === "Tasnim@1234"
       ) {
         localStorage.setItem("token", "loggedin");
         navigate("/admin");
