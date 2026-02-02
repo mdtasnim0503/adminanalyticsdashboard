@@ -38,7 +38,7 @@ export default function LoginForm() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values: any, { resetForm }: any) => {
       if (
         formik.values.email === "admin@gmail.com" &&
         formik.values.password === "Tasnim@1234"

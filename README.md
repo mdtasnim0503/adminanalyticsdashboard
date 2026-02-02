@@ -74,3 +74,4 @@ export default defineConfig([
 
 I have made changes in main.tsx file replace StrictMode tag with BrowserRouter.
 create routes folder in src folder for defining All routes in routes folder.
+For server run: json-server --watch db.json --port 5000

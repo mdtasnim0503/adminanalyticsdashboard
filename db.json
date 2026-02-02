@@ -1,0 +1,18 @@
+{
+  "stats": {
+    "totalUsers": 1250,
+    "totalOrders": 340,
+    "totalRevenue": 58700
+  },
+
+  "users": [
+    { "id": 1, "name": "Ali Imam", "email": "ali@gmail.com" },
+    { "id": 2, "name": "Zoya Akhtar", "email": "zoya@gmail.com" },
+    {"id":3,"name":"Imran Ansari","email": "imranansari@gmail.com"}
+  ],
+
+  "orders": [
+    { "id": 1, "product": "Laptop", "amount": 1200 },
+    { "id": 2, "product": "Phone", "amount": 800 }
+  ]
+}
