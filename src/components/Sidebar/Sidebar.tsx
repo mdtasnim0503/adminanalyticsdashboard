@@ -26,6 +26,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
+import { useEffect } from "react";
 
 export default function SideBar({
   sideBarOpen,
@@ -34,7 +35,7 @@ export default function SideBar({
   sideBarOpen: boolean;
   setSideBarOpen: any;
 }) {
-  const isSmall = useMediaQuery("(max-width:700px");
+  const isSmall = useMediaQuery("(max-width:700px)");
   const sideBarLinks = [
     {
       icon: <DashboardIcon />,
@@ -56,7 +57,13 @@ export default function SideBar({
   const handlePage = (page: string) => {
     navigate(page);
   };
-
+  useEffect(() => {
+    if (isSmall) {
+      setSideBarOpen(false);
+    } else {
+      setSideBarOpen(true);
+    }
+  }, [isSmall]);
   return (
     <Box>
       <Drawer
