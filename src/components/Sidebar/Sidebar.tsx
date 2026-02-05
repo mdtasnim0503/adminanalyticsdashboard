@@ -12,8 +12,10 @@ import {
   ListItemButton,
   ListItemContent,
   ListItemDecorator,
+  Tooltip,
   Typography,
 } from "@mui/joy";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
@@ -24,10 +26,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
-import { useState } from "react";
-export default function SideBar() {
+
+export default function SideBar({
+  sideBarOpen,
+  setSideBarOpen,
+}: {
+  sideBarOpen: boolean;
+  setSideBarOpen: any;
+}) {
   const isSmall = useMediaQuery("(max-width:700px");
-  const [sideBarOpen, setSideBarOpen] = useState(true);
   const sideBarLinks = [
     {
       icon: <DashboardIcon />,
@@ -54,11 +61,20 @@ export default function SideBar() {
     <Box>
       <Drawer
         open={true}
-        sx={{
-          "& .css-16k4q1o-JoyDrawer-content": {
-            width: sideBarOpen ? "300px" : "50px",
-            transition: "width 0.5s ease",
-            overflowX: "hidden",
+        variant="plain"
+        anchor="left"
+        slotProps={{
+          backdrop: {
+            sx: { display: "none", zIndex: 1000 },
+          },
+          content: {
+            sx: {
+              width: sideBarOpen ? "250px" : "50px",
+              transition: "width 0.5s ease",
+              position: "fixed",
+              zIndex: 1000,
+              border: "1px solid #00000033",
+            },
           },
         }}
       >
@@ -69,15 +85,37 @@ export default function SideBar() {
               gridTemplateColumns: "1fr 26px",
               justifyContent: "space-between",
               width: "100%",
+              padding: 0.4,
             }}
           >
-            <Typography
-              sx={{ color: "#171a1cb8" }}
-              level="title-lg"
-              startDecorator={<Avatar variant="solid" />}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "50px 1fr",
+                alignItems: "center",
+                position: "relative",
+              }}
             >
-              Md Tasnim
-            </Typography>
+              {sideBarOpen ? (
+                <Avatar variant="solid" />
+              ) : (
+                <IconButton
+                  onClick={() => setSideBarOpen(!sideBarOpen)}
+                  sx={{ position: "absolute", right: "1.5rem" }}
+                >
+                  <ChevronRightIcon />
+                </IconButton>
+              )}
+              <Typography
+                sx={{
+                  color: "#171a1cb8",
+                  display: sideBarOpen ? "block" : "none",
+                }}
+                level="title-lg"
+              >
+                Md Tasnim
+              </Typography>
+            </Box>
             <IconButton onClick={() => setSideBarOpen(!sideBarOpen)}>
               <KeyboardArrowLeftIcon />
             </IconButton>
@@ -105,7 +143,32 @@ export default function SideBar() {
                     padding: ".7rem",
                   }}
                 >
-                  <ListItemDecorator>{item.icon}</ListItemDecorator>
+                  {sideBarOpen ? (
+                    <ListItemDecorator>{item.icon}</ListItemDecorator>
+                  ) : (
+                    <Tooltip
+                      className="MuiTooltip-root"
+                      // sx={{
+                      //   "& .css-zio3dq-JoyTooltip-arrow::before": {
+                      //     borderLeftColor: "#547792",
+                      //     borderRightColor: "#547792",
+                      //     borderTopColor: "#547792",
+                      //     borderBottomColor: "#547792",
+                      //   },
+                      //   "& .MuiTooltip-root": {
+                      //     backgroundColor: "red",
+                      //   },
+                      // }}
+                      title={item.label}
+                      arrow
+                      // open
+                      color="primary"
+                      variant="soft"
+                      placement="right"
+                    >
+                      <ListItemDecorator>{item.icon}</ListItemDecorator>
+                    </Tooltip>
+                  )}
                   <ListItemContent>{item.label}</ListItemContent>
                   <KeyboardArrowRight sx={{ fontSize: "1.2rem" }} />
                 </ListItemButton>
