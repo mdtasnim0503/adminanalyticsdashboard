@@ -1,6 +1,7 @@
 import { Avatar, Box, Typography } from "@mui/joy";
 import { useLocation } from "react-router-dom";
-export default function AppBar() {
+import MobileSidebar from "../MobileSidebar/MobileSidebar";
+export default function AppBar({ isSmall }: { isSmall: boolean }) {
   // const navigate = useNavigate();
   const { pathname } = useLocation();
   // const logout = () => {
@@ -15,6 +16,7 @@ export default function AppBar() {
     { label: "Notifications", href: "/notifications" },
     { label: "Settings", href: "/settings" },
   ];
+
   const activePage = sideBarLinks.find((item) => item.href === pathname);
   const title = activePage?.label || "App Bar";
   return (
@@ -27,15 +29,18 @@ export default function AppBar() {
         alignItems: "center",
       }}
     >
-      <Typography
-        sx={{
-          fontSize: "1.7rem",
-          fontWeight: "bold",
-          color: "var(--textHeader)",
-        }}
-      >
-        {title}
-      </Typography>
+      <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+        <Box>{isSmall && <MobileSidebar />}</Box>
+        <Typography
+          sx={{
+            fontSize: "1.7rem",
+            fontWeight: "bold",
+            color: "var(--textHeader)",
+          }}
+        >
+          {title}
+        </Typography>
+      </Box>
       <Box sx={{ cursor: "pointer" }}>
         <Avatar variant="solid" />
       </Box>

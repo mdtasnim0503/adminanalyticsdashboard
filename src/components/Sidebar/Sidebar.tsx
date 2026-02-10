@@ -25,17 +25,17 @@ import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
 
 export default function SideBar({
-  sideBarOpen,
-  setSideBarOpen,
+  sideBarOpen = true,
+  setSideBarOpen = () => {},
+  isSmall,
 }: {
-  sideBarOpen: boolean;
-  setSideBarOpen: any;
+  sideBarOpen?: boolean;
+  setSideBarOpen?: (v: boolean) => void;
+  isSmall?: boolean;
 }) {
-  const isSmall = useMediaQuery("(max-width:700px)");
   const sideBarLinks = [
     {
       icon: <DashboardIcon />,
@@ -63,7 +63,7 @@ export default function SideBar({
     } else {
       setSideBarOpen(true);
     }
-  }, [isSmall]);
+  }, [isSmall, setSideBarOpen, setSideBarOpen]);
   return (
     <Box>
       <Drawer
@@ -72,7 +72,7 @@ export default function SideBar({
         anchor="left"
         slotProps={{
           backdrop: {
-            sx: { display: "none", zIndex: 1000 },
+            sx: { display: "none", zIndex: 1000, overflow: "hidden" },
           },
           content: {
             sx: {
@@ -81,9 +81,11 @@ export default function SideBar({
               position: "fixed",
               zIndex: 1000,
               border: "1px solid #00000033",
+              overflow: "hidden",
             },
           },
         }}
+        sx={{ display: isSmall ? "none" : "block" }}
       >
         <DialogTitle>
           <Box
@@ -128,7 +130,7 @@ export default function SideBar({
             </IconButton>
           </Box>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ overflow: "hidden" }}>
           <Divider />
           <List>
             <ListItem sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
@@ -155,20 +157,8 @@ export default function SideBar({
                   ) : (
                     <Tooltip
                       className="MuiTooltip-root"
-                      // sx={{
-                      //   "& .css-zio3dq-JoyTooltip-arrow::before": {
-                      //     borderLeftColor: "#547792",
-                      //     borderRightColor: "#547792",
-                      //     borderTopColor: "#547792",
-                      //     borderBottomColor: "#547792",
-                      //   },
-                      //   "& .MuiTooltip-root": {
-                      //     backgroundColor: "red",
-                      //   },
-                      // }}
                       title={item.label}
                       arrow
-                      // open
                       color="primary"
                       variant="soft"
                       placement="right"
