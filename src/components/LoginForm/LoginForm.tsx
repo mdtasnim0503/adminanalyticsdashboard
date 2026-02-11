@@ -79,7 +79,7 @@ export default function LoginForm() {
           backgroundColor: "rgb(213 209 209 / 73%)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255, 255, 255, 0.3)",
-          padding: 8,
+          padding: { xs: 6, sm: 8 },
           display: "flex",
           flexDirection: "column",
           width: { xs: "90%", sm: "60%", md: "40%" },

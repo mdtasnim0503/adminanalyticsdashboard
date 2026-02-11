@@ -16,7 +16,11 @@ export default function AdminCards() {
     totalOrders: "Total Orders",
     totalRevenue: "Total Revenue",
   };
-
+  const icons: any = {
+    totalUsers: GroupIcon,
+    totalOrders: ProductionQuantityLimitsIcon,
+    totalRevenue: CurrencyRupeeIcon,
+  };
   useEffect(() => {
     async function fetchUserData() {
       try {
@@ -64,6 +68,7 @@ export default function AdminCards() {
         };
     }
   };
+
   return (
     <Box
       sx={{
@@ -74,22 +79,25 @@ export default function AdminCards() {
       }}
     >
       {cardData &&
-        Object.entries(cardData).map(([key, value]) => (
-          <Box
-            sx={{ ...cardStyle(key), padding: ".5rem", borderRadius: "7px" }}
-            key={key}
-          >
-            <Typography sx={{ color: cardStyle(key).textColor }}>
-              {labels[key]}
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <GroupIcon />
-              <Typography sx={{ color: cardStyle(key).color }}>
-                {value} {key === "totalRevenue" ? "/-" : ""}
+        Object.entries(cardData).map(([key, value]) => {
+          const IconComponent = icons[key];
+          return (
+            <Box
+              sx={{ ...cardStyle(key), padding: ".5rem", borderRadius: "7px" }}
+              key={key}
+            >
+              <Typography sx={{ color: cardStyle(key).textColor }}>
+                {labels[key]}
               </Typography>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                {IconComponent && <IconComponent />}
+                <Typography sx={{ color: cardStyle(key).color }}>
+                  {value} {key === "totalRevenue" ? "/-" : ""}
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          );
+        })}
     </Box>
   );
 }

@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 #root {
   --textHeader: #3e5a70;
 }
